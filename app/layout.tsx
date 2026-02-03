@@ -1,16 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,10 +14,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className="dark">
+      <body >
+        <h1 className=" p-4 m-4 flex flex-row justify-center text-5xl">
+          YourBlogs
+        </h1>
+
+        <div className="flex flex-row p-4 m-4 flex-wrap">
+          <div className="flex flex-row flex-1">
+            <Button asChild variant="ghost"><Link href="/">Home</Link></Button>
+            <Button asChild variant="ghost"><Link href="/about">About</Link></Button>
+            <Button asChild variant="ghost"><Link href="/create">Create</Link></Button>
+          </div>
+          <div className="flex flex-row justify-end pd-4" >
+            <Button variant="outline">SingUp</Button>
+            <Button variant="outline">Login</Button>
+          </div>
+        </div>
         {children}
       </body>
     </html>
