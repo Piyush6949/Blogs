@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -14,7 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" title="YourBlog">
+
       <body >
         <h1 className=" p-4 m-4 flex flex-row justify-center text-5xl">
           YourBlogs
@@ -27,8 +28,8 @@ export default function RootLayout({
             <Button asChild variant="ghost"><Link href="/create">Create</Link></Button>
           </div>
           <div className="flex flex-row justify-end pd-4" >
-            <Button variant="outline">SingUp</Button>
-            <Button variant="outline">Login</Button>
+             <Button asChild variant="outline"><Link href="/signup">SignUp</Link></Button>
+             <Button asChild variant="outline"><Link href="/signin">Login</Link></Button>
           </div>
         </div>
         {children}
