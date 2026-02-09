@@ -30,6 +30,7 @@ export default function FieldDemo() {
                 </FieldLabel>
                 <Input
                   id="email"
+                  name="email"
                   placeholder="user@gmail.com"
                   required
                 />
@@ -40,19 +41,20 @@ export default function FieldDemo() {
                 </FieldLabel>
                 <Input
                   id="password"
+                  name="password"
                   type="password"
                   placeholder="********"
                   required
                 />
                 <FieldDescription>
-                  Create a strong password!!
+                  Enter your password!!
                 </FieldDescription>
               </Field>
             </FieldGroup>
           </FieldSet>
           <FieldSeparator />
           <Field orientation="horizontal">
-            <Button type="submit">Login</Button>
+            <Button type="submit" formAction={"api/user"} formMethod="get">Login</Button>
           </Field>
         </FieldGroup>
       </form>

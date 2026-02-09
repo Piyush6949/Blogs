@@ -36,6 +36,7 @@ export default function FieldDemo() {
                 </FieldLabel>
                 <Input
                   id="username"
+                  name="username"
                   placeholder="username"
                   required
                 />
@@ -46,6 +47,7 @@ export default function FieldDemo() {
                 </FieldLabel>
                 <Input
                   id="email"
+                  name="email"
                   placeholder="user@gmail.com"
                   required
                 />
@@ -56,6 +58,7 @@ export default function FieldDemo() {
                 </FieldLabel>
                 <Input
                   id="password"
+                  name="password"
                   type="password"
                   placeholder="********"
                   required
@@ -68,7 +71,7 @@ export default function FieldDemo() {
           </FieldSet>
           <FieldSeparator />
           <Field orientation="horizontal">
-            <Button type="submit" formAction={""} formMethod="post">Signup</Button>
+            <Button type="submit" formAction={"/api/user"} formMethod="post">Signup</Button>
           </Field>
         </FieldGroup>
       </form>

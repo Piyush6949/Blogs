@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { cookies } from 'next/headers'
+
+const cookieStore = await cookies();
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,23 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" title="YourBlog">
-
       <body >
         <h1 className=" p-4 m-4 flex flex-row justify-center text-5xl">
           YourBlogs
         </h1>
-
-        <div className="flex flex-row p-4 m-4 flex-wrap">
-          <div className="flex flex-row flex-1">
-            <Button asChild variant="ghost"><Link href="/">Home</Link></Button>
-            <Button asChild variant="ghost"><Link href="/about">About</Link></Button>
-            <Button asChild variant="ghost"><Link href="/create">Create</Link></Button>
-          </div>
-          <div className="flex flex-row justify-end pd-4" >
-             <Button asChild variant="outline"><Link href="/signup">SignUp</Link></Button>
-             <Button asChild variant="outline"><Link href="/signin">Login</Link></Button>
-          </div>
-        </div>
         {children}
       </body>
     </html>
