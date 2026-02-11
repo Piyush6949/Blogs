@@ -18,7 +18,7 @@ class UserService {
             const res = await User.createUser(data);
             const result = res[0];
             result.password = "";
-            createSession(result);
+            await createSession(result);
             return result;
         } catch (error) {
             console.log("error in service layer");

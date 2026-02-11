@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../globals.css";
 import { Button } from "@/components/ui/button";
 import { cookies } from 'next/headers'
+import Navbar from "@/components/web/navbar";
 
 const cookieStore = await cookies();
 
@@ -21,6 +22,7 @@ export default function RootLayout({
         <h1 className=" p-4 m-4 flex flex-row justify-center text-5xl">
           YourBlogs
         </h1>
+        <Navbar></Navbar>
         {children}
       </body>
     </html>

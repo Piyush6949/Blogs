@@ -89,6 +89,7 @@ export const BlogScalarFieldEnum = {
   title: 'title',
   content: 'content',
   authorId: 'authorId',
+  status: 'status',
   createdAt: 'createdAt'
 } as const
 

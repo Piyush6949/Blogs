@@ -14,42 +14,43 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  username   String   @unique
-  email  String @unique 
-  password  String  
-  name    String?
-  createdAt DateTime @default(now())
-  blogs Blog[]
-  comments Comment[]
-  favourites Blog[] @relation("favouriteBlog")
-  likedBlogs Blog[] @relation("likedBlog")
+  id            Int       @id @default(autoincrement())
+  username      String    @unique
+  email         String    @unique
+  password      String
+  name          String?
+  createdAt     DateTime  @default(now())
+  blogs         Blog[]
+  comments      Comment[]
+  favourites    Blog[]    @relation("favouriteBlog")
+  likedBlogs    Blog[]    @relation("likedBlog")
   likdeComments Comment[] @relation("likedComment")
 }
 
 model Blog {
-  id      Int      @id @default(autoincrement())
-  title   String  
-  content String 
-  author User @relation(fields: [authorId],references: [id])
-  authorId Int
-  createdAt DateTime @default(now())
-  comments Comment[]
-  favoritedBy User[] @relation("favouriteBlog")
-  likedBy User[] @relation("likedBlog")
+  id          Int       @id @default(autoincrement())
+  title       String
+  content_json Json?
+  content_html String?
+  author      User      @relation(fields: [authorId], references: [id])
+  authorId    Int
+  status      String    @default("draft")
+  createdAt   DateTime  @default(now())
+  comments    Comment[]
+  favoritedBy User[]    @relation("favouriteBlog")
+  likedBy     User[]    @relation("likedBlog")
 }
 
 model Comment {
-  id Int @id @default(autoincrement())
-  blog Blog @relation(fields: [blogId], references: [id])
-  blogId   Int   
-  author User @relation(fields: [authorId],references: [id])
-  authorId Int
-  comment String 
+  id        Int      @id @default(autoincrement())
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    Int
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  comment   String
   createdAt DateTime @default(now())
-  likedBy User[] @relation("likedComment")
+  likedBy   User[]   @relation("likedComment")
 }
-
 
 // model Like {
 //   user     User      @relation(fields: [userId],references: [id])

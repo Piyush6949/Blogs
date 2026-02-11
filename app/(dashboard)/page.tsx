@@ -1,12 +1,8 @@
 import BlogItem from "@/components/web/blogitem";
-import Navbar from "@/components/web/navbar"
-
 
 export default function Home() {
   return (
     <>
-      <Navbar></Navbar>
-
       <div className="flex flex-row justify-center">
         <div className="basis-2/3 flex flex-col" >
           <h2 className=" p-4 m-4 text-3xl self-center">Popular Blogs</h2>

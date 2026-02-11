@@ -10,7 +10,7 @@ export const verifySession = cache(async () => {
   const session = await decrypt(cookie);
  
   if (!session?.id) {
-    redirect('/login');
+    redirect('/signin');
   }
  
   return { isAuth: true, userId: session.id }
