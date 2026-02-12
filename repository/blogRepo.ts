@@ -38,4 +38,17 @@ export default class blogRepo {
             throw error;
         }
     }
+
+    async getContent(blogId : number){
+        try {
+            const blog = await prisma.blog.findUnique({
+                where:{
+                    id : blogId
+                },
+            });
+            return blog;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
