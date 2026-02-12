@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-import "../globals.css";
+import "./globals.css";
 import { Button } from "@/components/ui/button";
-import { cookies } from 'next/headers'
-import Navbar from "@/components/web/navbar";
-
-const cookieStore = await cookies();
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Create Next App",

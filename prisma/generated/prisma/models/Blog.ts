@@ -39,7 +39,7 @@ export type BlogSumAggregateOutputType = {
 export type BlogMinAggregateOutputType = {
   id: number | null
   title: string | null
-  content: string | null
+  content_html: string | null
   authorId: number | null
   status: string | null
   createdAt: Date | null
@@ -48,7 +48,7 @@ export type BlogMinAggregateOutputType = {
 export type BlogMaxAggregateOutputType = {
   id: number | null
   title: string | null
-  content: string | null
+  content_html: string | null
   authorId: number | null
   status: string | null
   createdAt: Date | null
@@ -57,7 +57,8 @@ export type BlogMaxAggregateOutputType = {
 export type BlogCountAggregateOutputType = {
   id: number
   title: number
-  content: number
+  content_json: number
+  content_html: number
   authorId: number
   status: number
   createdAt: number
@@ -78,7 +79,7 @@ export type BlogSumAggregateInputType = {
 export type BlogMinAggregateInputType = {
   id?: true
   title?: true
-  content?: true
+  content_html?: true
   authorId?: true
   status?: true
   createdAt?: true
@@ -87,7 +88,7 @@ export type BlogMinAggregateInputType = {
 export type BlogMaxAggregateInputType = {
   id?: true
   title?: true
-  content?: true
+  content_html?: true
   authorId?: true
   status?: true
   createdAt?: true
@@ -96,7 +97,8 @@ export type BlogMaxAggregateInputType = {
 export type BlogCountAggregateInputType = {
   id?: true
   title?: true
-  content?: true
+  content_json?: true
+  content_html?: true
   authorId?: true
   status?: true
   createdAt?: true
@@ -192,7 +194,8 @@ export type BlogGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type BlogGroupByOutputType = {
   id: number
   title: string
-  content: string
+  content_json: runtime.JsonValue | null
+  content_html: string | null
   authorId: number
   status: string
   createdAt: Date
@@ -224,7 +227,8 @@ export type BlogWhereInput = {
   NOT?: Prisma.BlogWhereInput | Prisma.BlogWhereInput[]
   id?: Prisma.IntFilter<"Blog"> | number
   title?: Prisma.StringFilter<"Blog"> | string
-  content?: Prisma.StringFilter<"Blog"> | string
+  content_json?: Prisma.JsonNullableFilter<"Blog">
+  content_html?: Prisma.StringNullableFilter<"Blog"> | string | null
   authorId?: Prisma.IntFilter<"Blog"> | number
   status?: Prisma.StringFilter<"Blog"> | string
   createdAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
@@ -237,7 +241,8 @@ export type BlogWhereInput = {
 export type BlogOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
+  content_json?: Prisma.SortOrderInput | Prisma.SortOrder
+  content_html?: Prisma.SortOrderInput | Prisma.SortOrder
   authorId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -253,7 +258,8 @@ export type BlogWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.BlogWhereInput[]
   NOT?: Prisma.BlogWhereInput | Prisma.BlogWhereInput[]
   title?: Prisma.StringFilter<"Blog"> | string
-  content?: Prisma.StringFilter<"Blog"> | string
+  content_json?: Prisma.JsonNullableFilter<"Blog">
+  content_html?: Prisma.StringNullableFilter<"Blog"> | string | null
   authorId?: Prisma.IntFilter<"Blog"> | number
   status?: Prisma.StringFilter<"Blog"> | string
   createdAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
@@ -266,7 +272,8 @@ export type BlogWhereUniqueInput = Prisma.AtLeast<{
 export type BlogOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
+  content_json?: Prisma.SortOrderInput | Prisma.SortOrder
+  content_html?: Prisma.SortOrderInput | Prisma.SortOrder
   authorId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -283,7 +290,8 @@ export type BlogScalarWhereWithAggregatesInput = {
   NOT?: Prisma.BlogScalarWhereWithAggregatesInput | Prisma.BlogScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Blog"> | number
   title?: Prisma.StringWithAggregatesFilter<"Blog"> | string
-  content?: Prisma.StringWithAggregatesFilter<"Blog"> | string
+  content_json?: Prisma.JsonNullableWithAggregatesFilter<"Blog">
+  content_html?: Prisma.StringNullableWithAggregatesFilter<"Blog"> | string | null
   authorId?: Prisma.IntWithAggregatesFilter<"Blog"> | number
   status?: Prisma.StringWithAggregatesFilter<"Blog"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Blog"> | Date | string
@@ -291,7 +299,8 @@ export type BlogScalarWhereWithAggregatesInput = {
 
 export type BlogCreateInput = {
   title: string
-  content: string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: string | null
   status?: string
   createdAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutBlogsInput
@@ -303,7 +312,8 @@ export type BlogCreateInput = {
 export type BlogUncheckedCreateInput = {
   id?: number
   title: string
-  content: string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: string | null
   authorId: number
   status?: string
   createdAt?: Date | string
@@ -314,7 +324,8 @@ export type BlogUncheckedCreateInput = {
 
 export type BlogUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutBlogsNestedInput
@@ -326,7 +337,8 @@ export type BlogUpdateInput = {
 export type BlogUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -338,7 +350,8 @@ export type BlogUncheckedUpdateInput = {
 export type BlogCreateManyInput = {
   id?: number
   title: string
-  content: string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: string | null
   authorId: number
   status?: string
   createdAt?: Date | string
@@ -346,7 +359,8 @@ export type BlogCreateManyInput = {
 
 export type BlogUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -354,7 +368,8 @@ export type BlogUpdateManyMutationInput = {
 export type BlogUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -373,7 +388,8 @@ export type BlogOrderByRelationAggregateInput = {
 export type BlogCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
+  content_json?: Prisma.SortOrder
+  content_html?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -387,7 +403,7 @@ export type BlogAvgOrderByAggregateInput = {
 export type BlogMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
+  content_html?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -396,7 +412,7 @@ export type BlogMaxOrderByAggregateInput = {
 export type BlogMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  content?: Prisma.SortOrder
+  content_html?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -546,7 +562,8 @@ export type BlogUpdateOneRequiredWithoutCommentsNestedInput = {
 
 export type BlogCreateWithoutAuthorInput = {
   title: string
-  content: string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: string | null
   status?: string
   createdAt?: Date | string
   comments?: Prisma.CommentCreateNestedManyWithoutBlogInput
@@ -557,7 +574,8 @@ export type BlogCreateWithoutAuthorInput = {
 export type BlogUncheckedCreateWithoutAuthorInput = {
   id?: number
   title: string
-  content: string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: string | null
   status?: string
   createdAt?: Date | string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutBlogInput
@@ -577,7 +595,8 @@ export type BlogCreateManyAuthorInputEnvelope = {
 
 export type BlogCreateWithoutFavoritedByInput = {
   title: string
-  content: string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: string | null
   status?: string
   createdAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutBlogsInput
@@ -588,7 +607,8 @@ export type BlogCreateWithoutFavoritedByInput = {
 export type BlogUncheckedCreateWithoutFavoritedByInput = {
   id?: number
   title: string
-  content: string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: string | null
   authorId: number
   status?: string
   createdAt?: Date | string
@@ -603,7 +623,8 @@ export type BlogCreateOrConnectWithoutFavoritedByInput = {
 
 export type BlogCreateWithoutLikedByInput = {
   title: string
-  content: string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: string | null
   status?: string
   createdAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutBlogsInput
@@ -614,7 +635,8 @@ export type BlogCreateWithoutLikedByInput = {
 export type BlogUncheckedCreateWithoutLikedByInput = {
   id?: number
   title: string
-  content: string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: string | null
   authorId: number
   status?: string
   createdAt?: Date | string
@@ -649,7 +671,8 @@ export type BlogScalarWhereInput = {
   NOT?: Prisma.BlogScalarWhereInput | Prisma.BlogScalarWhereInput[]
   id?: Prisma.IntFilter<"Blog"> | number
   title?: Prisma.StringFilter<"Blog"> | string
-  content?: Prisma.StringFilter<"Blog"> | string
+  content_json?: Prisma.JsonNullableFilter<"Blog">
+  content_html?: Prisma.StringNullableFilter<"Blog"> | string | null
   authorId?: Prisma.IntFilter<"Blog"> | number
   status?: Prisma.StringFilter<"Blog"> | string
   createdAt?: Prisma.DateTimeFilter<"Blog"> | Date | string
@@ -689,7 +712,8 @@ export type BlogUpdateManyWithWhereWithoutLikedByInput = {
 
 export type BlogCreateWithoutCommentsInput = {
   title: string
-  content: string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: string | null
   status?: string
   createdAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutBlogsInput
@@ -700,7 +724,8 @@ export type BlogCreateWithoutCommentsInput = {
 export type BlogUncheckedCreateWithoutCommentsInput = {
   id?: number
   title: string
-  content: string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: string | null
   authorId: number
   status?: string
   createdAt?: Date | string
@@ -726,7 +751,8 @@ export type BlogUpdateToOneWithWhereWithoutCommentsInput = {
 
 export type BlogUpdateWithoutCommentsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutBlogsNestedInput
@@ -737,7 +763,8 @@ export type BlogUpdateWithoutCommentsInput = {
 export type BlogUncheckedUpdateWithoutCommentsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -748,14 +775,16 @@ export type BlogUncheckedUpdateWithoutCommentsInput = {
 export type BlogCreateManyAuthorInput = {
   id?: number
   title: string
-  content: string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: string | null
   status?: string
   createdAt?: Date | string
 }
 
 export type BlogUpdateWithoutAuthorInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUpdateManyWithoutBlogNestedInput
@@ -766,7 +795,8 @@ export type BlogUpdateWithoutAuthorInput = {
 export type BlogUncheckedUpdateWithoutAuthorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutBlogNestedInput
@@ -777,14 +807,16 @@ export type BlogUncheckedUpdateWithoutAuthorInput = {
 export type BlogUncheckedUpdateManyWithoutAuthorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type BlogUpdateWithoutFavoritedByInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutBlogsNestedInput
@@ -795,7 +827,8 @@ export type BlogUpdateWithoutFavoritedByInput = {
 export type BlogUncheckedUpdateWithoutFavoritedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -806,7 +839,8 @@ export type BlogUncheckedUpdateWithoutFavoritedByInput = {
 export type BlogUncheckedUpdateManyWithoutFavoritedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -814,7 +848,8 @@ export type BlogUncheckedUpdateManyWithoutFavoritedByInput = {
 
 export type BlogUpdateWithoutLikedByInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutBlogsNestedInput
@@ -825,7 +860,8 @@ export type BlogUpdateWithoutLikedByInput = {
 export type BlogUncheckedUpdateWithoutLikedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -836,7 +872,8 @@ export type BlogUncheckedUpdateWithoutLikedByInput = {
 export type BlogUncheckedUpdateManyWithoutLikedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
+  content_json?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  content_html?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   authorId?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -894,7 +931,8 @@ export type BlogCountOutputTypeCountLikedByArgs<ExtArgs extends runtime.Types.Ex
 export type BlogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
-  content?: boolean
+  content_json?: boolean
+  content_html?: boolean
   authorId?: boolean
   status?: boolean
   createdAt?: boolean
@@ -908,7 +946,8 @@ export type BlogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type BlogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
-  content?: boolean
+  content_json?: boolean
+  content_html?: boolean
   authorId?: boolean
   status?: boolean
   createdAt?: boolean
@@ -918,7 +957,8 @@ export type BlogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type BlogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
-  content?: boolean
+  content_json?: boolean
+  content_html?: boolean
   authorId?: boolean
   status?: boolean
   createdAt?: boolean
@@ -928,13 +968,14 @@ export type BlogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type BlogSelectScalar = {
   id?: boolean
   title?: boolean
-  content?: boolean
+  content_json?: boolean
+  content_html?: boolean
   authorId?: boolean
   status?: boolean
   createdAt?: boolean
 }
 
-export type BlogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "authorId" | "status" | "createdAt", ExtArgs["result"]["blog"]>
+export type BlogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content_json" | "content_html" | "authorId" | "status" | "createdAt", ExtArgs["result"]["blog"]>
 export type BlogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   comments?: boolean | Prisma.Blog$commentsArgs<ExtArgs>
@@ -960,7 +1001,8 @@ export type $BlogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     title: string
-    content: string
+    content_json: runtime.JsonValue | null
+    content_html: string | null
     authorId: number
     status: string
     createdAt: Date
@@ -1393,7 +1435,8 @@ export interface Prisma__BlogClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface BlogFieldRefs {
   readonly id: Prisma.FieldRef<"Blog", 'Int'>
   readonly title: Prisma.FieldRef<"Blog", 'String'>
-  readonly content: Prisma.FieldRef<"Blog", 'String'>
+  readonly content_json: Prisma.FieldRef<"Blog", 'Json'>
+  readonly content_html: Prisma.FieldRef<"Blog", 'String'>
   readonly authorId: Prisma.FieldRef<"Blog", 'Int'>
   readonly status: Prisma.FieldRef<"Blog", 'String'>
   readonly createdAt: Prisma.FieldRef<"Blog", 'DateTime'>

@@ -12,7 +12,7 @@ export default async function Navbar() {
             <div className="flex flex-row flex-1">
                 <Button asChild variant="ghost"><Link href="/">Home</Link></Button>
                 <Button asChild variant="ghost"><Link href="/about">About</Link></Button>
-                <Button asChild variant="ghost"><Link href="/create">Create</Link></Button>
+                <Button asChild variant="ghost"><Link href="/create/new-story">Create</Link></Button>
                 
             </div>
 
