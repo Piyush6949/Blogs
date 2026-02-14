@@ -4,9 +4,9 @@ import type { JSONContent } from '@tiptap/core'
 
 
 export default class blogRepo {
-    async saveDraft(data : {title: string, content_json: JSONContent, id: number}) {
+    async saveDraft(data: { title: string, content_json: JSONContent, id: number }) {
         try {
-            if(data.title === ""){
+            if (data.title === "") {
                 data.title = "Untitled Blog"
             }
             const blog = await prisma.blog.create({
@@ -22,11 +22,11 @@ export default class blogRepo {
         }
     }
 
-    async editDraft(data : {title: string, content_json: JSONContent, blogId: number}) {
+    async editDraft(data: { title: string, content_json: JSONContent, blogId: number }) {
         try {
             const blog = await prisma.blog.update({
-                where:{
-                    id : data.blogId
+                where: {
+                    id: data.blogId
                 },
                 data: {
                     title: data.title,
@@ -39,11 +39,11 @@ export default class blogRepo {
         }
     }
 
-    async getContent(blogId : number){
+    async getContent(blogId: number) {
         try {
             const blog = await prisma.blog.findUnique({
-                where:{
-                    id : blogId
+                where: {
+                    id: blogId
                 },
             });
             return blog;
@@ -51,4 +51,19 @@ export default class blogRepo {
             throw error;
         }
     }
+
+    async publish(data : {blogId : number,title:string}) {
+        try {
+            await prisma.blog.update({
+                where: { id: data.blogId },
+                data: {
+                    title: data.title,
+                    status: "published",
+                },
+            })
+        } catch (error) {
+
+        }
+    }
+
 }

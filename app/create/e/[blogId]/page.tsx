@@ -8,11 +8,11 @@ import MenuBar from '@/components/web/Menubar'
 import { Button } from '@/components/ui/button'
 import { edit, publish, getContent } from '@/app/actions/blog'
 import '@/app/globals.css'
+import { redirect } from 'next/navigation'
+import Link from 'next/link'
 
 export default function CreatePage({ params }: { params: Promise<{ blogId: string }> }) {
-    // Unwrap params using React's `use` hook (Next.js 15 best practice)
     const { blogId } = use(params);
-    
     const [title, setTitle] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
@@ -25,6 +25,7 @@ export default function CreatePage({ params }: { params: Promise<{ blogId: strin
                 placeholder: 'Start Writing your Blog...',
             })
         ],
+        content: "",
         immediatelyRender: false,
     });
 
@@ -64,15 +65,7 @@ export default function CreatePage({ params }: { params: Promise<{ blogId: strin
         setIsSaving(false); 
     }, [editor, title, blogId]);
 
-    const handlePublish = useCallback(async () => {
-        if (!editor) return;
-        const content_json = editor.getJSON();
-        await publish(content_json, title);
-    }, [editor, title, blogId]);
-
-    if (!editor || isLoading) {
-        return <div className="flex justify-center p-10">Loading...</div>;
-    }
+    if (!editor) return <div>Loading...</div>;
 
     return (
         <div className='flex flex-col items-center w-full gap-20 p-10'>
@@ -91,7 +84,7 @@ export default function CreatePage({ params }: { params: Promise<{ blogId: strin
             <EditorContent editor={editor} className='min-h-80 w-1/2' />
             <div className='flex flex-row gap-10'>
                 <Button onClick={handleSave}>{isSaving ? 'Saving...' : 'Save'}</Button>
-                <Button onClick={handlePublish}>Publish</Button>
+                <Button asChild ><Link href={`/publish/${blogId}`}>Publish</Link></Button>
             </div>
         </div>
     )
