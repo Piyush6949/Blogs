@@ -56,6 +56,7 @@ export default function CreatePage({ params }: { params: Promise<{ blogId: strin
         };
     }, [editor, blogId]);
 
+    
     // Memoize callbacks to avoid recreating on each render
     const handleSave = useCallback(async () => {
         if (!editor) return;
@@ -64,7 +65,17 @@ export default function CreatePage({ params }: { params: Promise<{ blogId: strin
         await edit(content_json, title, blogId);
         setIsSaving(false); 
     }, [editor, title, blogId]);
-
+    
+    if (isLoading) {
+        return (
+            <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
+                <div className="text-center">
+                    <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                    <p className="text-muted-foreground">Loading...</p>
+                </div>
+            </div>
+        )
+    }
     if (!editor) return <div>Loading...</div>;
 
     return (

@@ -52,7 +52,7 @@ export default class blogRepo {
         }
     }
 
-    async publish(data : {blogId : number,title:string}) {
+    async publish(data: { blogId: number, title: string }) {
         try {
             await prisma.blog.update({
                 where: { id: data.blogId },
@@ -62,7 +62,37 @@ export default class blogRepo {
                 },
             })
         } catch (error) {
+            throw error;
+        }
+    }
 
+    async getPublishedBlog(blogId: number) {
+        try {
+            const blog = await prisma.blog.findUnique({
+                where: {
+                    id: blogId,
+                    status: "published"
+                },
+                include: {
+                    author: {
+                        select: {
+                            id: true,
+                            name: true,
+                            username: true,
+                        }
+                    },
+                    _count: {
+                        select: {
+                            likedBy: true,
+                            favoritedBy: true,
+                            comments: true,
+                        }
+                    },
+                }
+            });
+            return blog;
+        } catch (error) {
+            throw error;
         }
     }
 

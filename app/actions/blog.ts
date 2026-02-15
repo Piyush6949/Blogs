@@ -61,3 +61,9 @@ export async function getContent(id: string): Promise<JSONContent | null> {
   }
   return res;
 }
+
+export async function getPublishedBlog(id: string) {
+  const blogId = Number(id);
+  const res = await blog.getPublishedBlog(blogId);
+  return res;
+}
