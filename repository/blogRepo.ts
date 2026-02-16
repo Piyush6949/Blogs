@@ -96,4 +96,52 @@ export default class blogRepo {
         }
     }
 
+    async getUserDrafts(userId: number) {
+        try {
+            const drafts = await prisma.blog.findMany({
+                where: {
+                    authorId: userId,
+                    status: "draft"
+                },
+                select: {
+                    id: true,
+                    title: true,
+                    content_json: true,
+                    createdAt: true,
+                    status: true,
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                }
+            });
+            return drafts;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getUserPublishedBlogs(userId: number) {
+        try {
+            const publishedBlogs = await prisma.blog.findMany({
+                where: {
+                    authorId: userId,
+                    status: "published"
+                },
+                select: {
+                    id: true,
+                    title: true,
+                    content_json: true,
+                    createdAt: true,
+                    status: true,
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                }
+            });
+            return publishedBlogs;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
