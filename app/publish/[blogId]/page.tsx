@@ -5,6 +5,7 @@ import { publish } from '@/app/actions/blog';
 import { use, useEffect, useState, useCallback } from 'react'
 import { verifySession } from '@/lib/dal';
 import { getContent } from '@/app/actions/blog';
+import LoadingSpinner from '@/components/web/loading-spinner';
 
 export default function Publish({ params }: { params: Promise<{ blogId: string }> }) {
   const { blogId } = use(params);
@@ -35,11 +36,7 @@ export default function Publish({ params }: { params: Promise<{ blogId: string }
   }, [blogId]);
 
   if (IsLoading) {
-    return (
-      <div>
-        Loading...
-      </div>
-    )
+    return <LoadingSpinner message="Loading…" />
   }
 
   return (

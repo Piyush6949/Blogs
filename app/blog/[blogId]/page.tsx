@@ -7,6 +7,7 @@ import StarterKit from '@tiptap/starter-kit'
 import { TextStyle } from '@tiptap/extension-text-style'
 import { Heart, Bookmark, Clock, Calendar, MessageCircle } from 'lucide-react'
 import '@/app/globals.css'
+import LoadingSpinner from '@/components/web/loading-spinner'
 
 interface BlogData {
     id: number
@@ -54,14 +55,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ blogId: s
     }, [])
 
     if (isLoading) {
-        return (
-            <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
-                <div className="text-center">
-                    <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                    <p className="text-muted-foreground">Loading...</p>
-                </div>
-            </div>
-        )
+        return <LoadingSpinner message="Loading post…" />
     }
 
     if (!blog) {

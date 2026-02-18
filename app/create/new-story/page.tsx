@@ -8,13 +8,13 @@ import { Button } from '@/components/ui/button'
 import { Placeholder } from '@tiptap/extension-placeholder'
 import React from 'react'
 import '@/app/globals.css'
-import {save} from '@/app/actions/blog';
-import {publish} from '@/app/actions/blog';
+import { save } from '@/app/actions/blog';
+import { publish } from '@/app/actions/blog';
 
 
 export async function saveDraft(editor: ReturnType<typeof useEditor>, title: string) {
   const content_json = editor.getJSON();
-  await save(content_json,title);
+  await save(content_json, title);
 }
 
 
@@ -32,23 +32,43 @@ export default function CreatePage() {
   if (!editor) return null
 
   return (
-    <>
-      <div className='flex flex-col items-center w-full gap-20 h-96 p-10'>
-        <div>
-          <input value={title} onChange={e => { setTitle(e.target.value) }} className='tiptap text-2xl text-center ' type="text" placeholder='Title' />
-        </div>
-        <div className='w-1/2 min-w-60'><MenuBar editor={editor} /></div>
-
-        <EditorContent editor={editor} className='min-h-80 w-1/2' />
-        <div className='flex flex-row gap-10'>
-          <Button onClick={() => saveDraft(editor, title)}>
-            Save
+    <div className="flex flex-col">
+      {/* ── Sticky toolbar ──────────────────────────────────── */}
+      <div className="sticky top-0 z-30 backdrop-blur-md bg-background/80 border-b border-border px-4 py-2">
+        <div className="max-w-3xl mx-auto flex items-center gap-3">
+          <div className="flex-1 min-w-0">
+            <MenuBar editor={editor} />
+          </div>
+          <Button
+            variant="outline"
+            className="px-5 shrink-0"
+            onClick={() => saveDraft(editor, title)}
+          >
+            Save Draft
           </Button>
-          {/* <Button onClick={publish}>
-            Publish
-          </Button> */}
         </div>
       </div>
-    </>
+
+      {/* ── Editor area ─────────────────────────────────────── */}
+      <div className="max-w-3xl mx-auto w-full px-6 py-10 space-y-6">
+        {/* Title */}
+        <input
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          className="w-full bg-transparent text-3xl md:text-4xl font-bold tracking-tight text-foreground placeholder:text-muted-foreground/40 border-none outline-none"
+          type="text"
+          placeholder="Title"
+        />
+
+        {/* Divider */}
+        <div className="h-px bg-border" />
+
+        {/* Content editor */}
+        <EditorContent
+          editor={editor}
+          className="min-h-[60vh] prose-invert text-foreground/90 [&_.tiptap]:outline-none"
+        />
+      </div>
+    </div>
   )
 }

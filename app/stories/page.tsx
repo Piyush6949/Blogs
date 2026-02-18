@@ -1,10 +1,11 @@
 'use client'
 
-import { JsonValue } from '@prisma/client/runtime/client'
+
 import { useState, useEffect } from 'react'
 import { getDrafts, getPublishedBlogs } from '@/app/actions/stories'
 import BlogListItem from '@/components/web/BlogListItem'
 import { JSONContent } from '@tiptap/core'
+import LoadingSpinner from '@/components/web/loading-spinner'
 
 interface Blog {
     id: number
@@ -30,8 +31,8 @@ export default function StoriesPage() {
                     getDrafts(),
                     getPublishedBlogs()
                 ])
-                setDrafts(draftsData);
-                setPublished(publishedData);
+                setDrafts(draftsData as Blog[]);
+                setPublished(publishedData as Blog[]);
             } catch (error) {
                 console.error('Failed to load stories:', error)
             } finally {
@@ -42,14 +43,7 @@ export default function StoriesPage() {
     }, [])
 
     if (isLoading) {
-        return (
-            <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
-                <div className="text-center">
-                    <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                    <p className="text-muted-foreground">Loading your stories...</p>
-                </div>
-            </div>
-        )
+        return <LoadingSpinner message="Loading your stories…" />
     }
 
     const currentBlogs = activeTab === 'drafts' ? drafts : published
@@ -71,8 +65,8 @@ export default function StoriesPage() {
                         <button
                             onClick={() => setActiveTab('drafts')}
                             className={`pb-4 px-2 font-medium transition-colors relative ${activeTab === 'drafts'
-                                    ? 'text-foreground'
-                                    : 'text-muted-foreground hover:text-foreground'
+                                ? 'text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
                                 }`}
                         >
                             Drafts {draftsCount > 0 && <span className="ml-1">{draftsCount}</span>}
@@ -83,8 +77,8 @@ export default function StoriesPage() {
                         <button
                             onClick={() => setActiveTab('published')}
                             className={`pb-4 px-2 font-medium transition-colors relative ${activeTab === 'published'
-                                    ? 'text-foreground'
-                                    : 'text-muted-foreground hover:text-foreground'
+                                ? 'text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
                                 }`}
                         >
                             Published {publishedCount > 0 && <span className="ml-1">{publishedCount}</span>}
