@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { JSONContent } from '@tiptap/core'
 import { useState, useRef, useEffect } from 'react'
+import { redirect } from 'next/navigation'
 
 interface BlogListItemProps {
     id: number
@@ -108,9 +109,12 @@ export default function BlogListItem({ id, title, content_json, createdAt, statu
                         <button
                             className="block w-full text-left px-4 py-2 text-sm text-foreground hover:bg-accent/50"
                             onClick={(e) => {
-                                // e.preventDefault();
-                                // TODO: Add delete functionality
                                 setIsOpen(false);
+                                if(status === "draft"){
+                                    redirect(`/publish/${id}`)
+                                }else{
+                                    redirect(`/create/e/${id}`)
+                                }
                             }}
                         >
                             {status === 'draft' ? 'Publish' : 'Edit'}

@@ -8,6 +8,7 @@ import { TextStyle } from '@tiptap/extension-text-style'
 import { Heart, Bookmark, Clock, Calendar, MessageCircle } from 'lucide-react'
 import '@/app/globals.css'
 import LoadingSpinner from '@/components/web/loading-spinner'
+import { handleLike, handleFavorite } from '@/app/actions/blog'
 
 interface BlogData {
     id: number
@@ -141,7 +142,9 @@ export default function BlogDetailPage({ params }: { params: Promise<{ blogId: s
                 {/* Floating Action Buttons */}
                 <div className="fixed bottom-8 right-8 flex flex-col gap-4">
                     <button
-                        onClick={() => setIsLiked(!isLiked)}
+                        onClick={() => {setIsLiked(!isLiked);
+                            handleLike(blogId,!isLiked);
+                        }}
                         className={`group w-14 h-14 rounded-full backdrop-blur-md border transition-all duration-300 flex items-center justify-center shadow-lg hover:scale-110 ${isLiked
                             ? 'bg-accent border-accent text-accent-foreground'
                             : 'bg-background/80 border-border hover:border-accent'
@@ -154,7 +157,9 @@ export default function BlogDetailPage({ params }: { params: Promise<{ blogId: s
                     </button>
 
                     <button
-                        onClick={() => setIsFavorited(!isFavorited)}
+                        onClick={() => {setIsFavorited(!isFavorited);
+                            handleFavorite(blogId,!isFavorited);
+                        }}
                         className={`group w-14 h-14 rounded-full backdrop-blur-md border transition-all duration-300 flex items-center justify-center shadow-lg hover:scale-110 ${isFavorited
                             ? 'bg-primary border-primary text-primary-foreground'
                             : 'bg-background/80 border-border hover:border-primary'

@@ -144,4 +144,84 @@ export default class blogRepo {
         }
     }
 
+    async like(blogId: number, userId: number) {
+        try {
+            const blog = await prisma.blog.update({
+                where: {
+                    id: blogId,
+                },
+                data: {
+                    likedBy: {
+                        connect: {
+                            id: userId
+                        }
+                    }
+                }
+            });
+            return blog;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async unlike(blogId: number, userId: number) {
+        try {
+            const blog = await prisma.blog.update({
+                where: {
+                    id: blogId,
+                },
+                data: {
+                    likedBy: {
+                        disconnect: {
+                            id: userId
+                        }
+                    }
+                }
+            });
+            return blog;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async favorite(blogId: number, userId: number) {
+        try {
+            const blog = await prisma.blog.update({
+                where: {
+                    id: blogId
+                },
+                data: {
+                    favoritedBy: {
+                        connect: {
+                            id: userId
+                        }
+                    }
+                }
+            });
+            return blog;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async unfavorite(blogId: number, userId: number) {
+        try {
+            const blog = await prisma.blog.update({
+                where: {
+                    id: blogId
+                },
+                data: {
+                    favoritedBy: {
+                        disconnect: {
+                            id: userId
+                        }
+                    }
+                }
+            });
+            return blog;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }

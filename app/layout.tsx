@@ -30,7 +30,7 @@ export default async function RootLayout({
 
         <div className="min-h-0 min-w-0 overflow-visible">
           <SidebarProvider
-            defaultOpen={true}
+            defaultOpen={false}
             className="h-full w-full dark"
           >
             <AppSidebar isLoggedIn={!!session} username={session?.username} />

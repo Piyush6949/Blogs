@@ -1,3 +1,0 @@
-// to create blog 
-// POST 
-

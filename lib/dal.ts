@@ -11,6 +11,6 @@ export const verifySession = cache(async () => {
   if (!session?.id) {
     redirect('/signin');
   }
- 
-  return { isAuth: true, userId: session.id }
+  const userId = session.id;
+  return {userId};
 })

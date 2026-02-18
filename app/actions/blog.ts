@@ -67,3 +67,34 @@ export async function getPublishedBlog(id: string) {
   const res = await blog.getPublishedBlog(blogId);
   return res;
 }
+
+
+export async function handleLike(id: string, state: boolean) {
+  const blogId = Number(id);
+  const { userId } = await verifySession();
+  if (state) {
+    const res = await blog.like(blogId, userId);
+    console.log(res);
+    return res;
+  }
+  else {
+    const res = await blog.unlike(blogId, userId);
+    console.log(res);
+    return res;
+  }
+}
+
+
+
+export async function handleFavorite(id: string,state:boolean) {
+  const blogId = Number(id);
+  const { userId } = await verifySession();
+  if (state) {
+    const res = await blog.favorite(blogId, userId);
+    return res;
+  }
+  else {
+    const res = await blog.unfavorite(blogId, userId);
+    return res;
+  }
+}
