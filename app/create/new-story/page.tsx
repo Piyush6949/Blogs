@@ -12,8 +12,10 @@ import { save } from '@/app/actions/blog';
 import { publish } from '@/app/actions/blog';
 
 
-export async function saveDraft(editor: ReturnType<typeof useEditor>, title: string) {
-  const content_json = editor.getJSON();
+async function saveDraft(editor: ReturnType<typeof useEditor>, title: string) {
+  const raw = editor?.getJSON();
+  if (!raw) return;
+  const content_json = JSON.parse(JSON.stringify(raw));
   await save(content_json, title);
 }
 

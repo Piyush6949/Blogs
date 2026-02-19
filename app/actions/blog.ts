@@ -4,7 +4,15 @@ import blogRepo from '@/repository/blogRepo'
 import { cookies } from 'next/headers';
 import { decrypt } from '@/lib/session';
 import { redirect, RedirectType } from 'next/navigation';
-import { JSONContent } from '@tiptap/react';
+// Plain type alias to avoid importing client-side @tiptap/react in server actions
+type JSONContent = {
+  type?: string;
+  attrs?: Record<string, any>;
+  content?: JSONContent[];
+  marks?: { type: string; attrs?: Record<string, any>;[key: string]: any }[];
+  text?: string;
+  [key: string]: any;
+};
 import { verifySession } from '@/lib/dal';
 
 const blog = new blogRepo();
@@ -23,7 +31,7 @@ export async function save(content_json: JSONContent, title: string) {
 
 export async function publish(formData: FormData) {
   try {
-    // await verifySession();
+    await verifySession();
     const title = String(formData.get("title"));
     const blogId = Number(formData.get("blogId"))
     const tagsRaw = String(formData.get("tags") ?? "")
@@ -36,7 +44,7 @@ export async function publish(formData: FormData) {
       .filter(tag => tag.length > 0)
 
     const res = await blog.publish({ blogId, title });
-    redirect(`/create/e/${blogId}`)
+    redirect(`/stories`)
   } catch (error) {
     console.error("Publish failed:", error)
     throw error
@@ -86,7 +94,7 @@ export async function handleLike(id: string, state: boolean) {
 
 
 
-export async function handleFavorite(id: string,state:boolean) {
+export async function handleFavorite(id: string, state: boolean) {
   const blogId = Number(id);
   const { userId } = await verifySession();
   if (state) {

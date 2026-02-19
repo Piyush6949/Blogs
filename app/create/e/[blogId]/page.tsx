@@ -1,5 +1,6 @@
 'use client'
 import { useEditor, EditorContent } from '@tiptap/react'
+import { useRouter } from 'next/navigation'
 import StarterKit from '@tiptap/starter-kit'
 import { TextStyle } from '@tiptap/extension-text-style'
 import { Placeholder } from '@tiptap/extension-placeholder'
@@ -8,13 +9,14 @@ import MenuBar from '@/components/web/Menubar'
 import { Button } from '@/components/ui/button'
 import { edit, publish, getContent } from '@/app/actions/blog'
 import '@/app/globals.css'
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import LoadingSpinner from '@/components/web/loading-spinner'
 
 export default function CreatePage({ params }: { params: Promise<{ blogId: string }> }) {
     const { blogId } = use(params);
+    const router = useRouter();
     const [title, setTitle] = useState("");
+    const [status, setStatus] = useState("draft");
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
 
@@ -38,9 +40,9 @@ export default function CreatePage({ params }: { params: Promise<{ blogId: strin
         const fetchData = async () => {
             try {
                 const response = await getContent(blogId);
-
                 if (response && isMounted) {
                     setTitle(response.title);
+                    setStatus(response.status);
                     editor.commands.setContent(response.content_json);
                 }
             } catch (error) {
@@ -62,9 +64,11 @@ export default function CreatePage({ params }: { params: Promise<{ blogId: strin
     const handleSave = useCallback(async () => {
         if (!editor) return;
         setIsSaving(true);
-        const content_json = editor.getJSON();
+        // Deep-clone to strip any non-serializable prototypes/symbols from TipTap objects
+        const content_json = JSON.parse(JSON.stringify(editor.getJSON()));
         await edit(content_json, title, blogId);
         setIsSaving(false);
+        router.push('/stories')
     }, [editor, title, blogId]);
 
     if (isLoading) {
@@ -80,16 +84,29 @@ export default function CreatePage({ params }: { params: Promise<{ blogId: strin
                     <div className="flex-1 min-w-0">
                         <MenuBar editor={editor} />
                     </div>
-                    <Button
-                        variant="outline"
-                        className="px-5 shrink-0"
-                        onClick={handleSave}
-                    >
-                        {isSaving ? 'Saving…' : 'Save Draft'}
-                    </Button>
-                    <Button asChild className="px-5 shrink-0">
-                        <Link href={`/publish/${blogId}`}>Publish</Link>
-                    </Button>
+                    {status === 'draft' ?
+                        (<div>
+                            <Button
+                                variant="outline"
+                                className="px-5 shrink-0"
+                                onClick={handleSave}
+                            >
+                                {isSaving ? 'Saving…' : 'Save Draft'}
+                            </Button>
+                            <Button asChild className="px-5 shrink-0">
+                                <Link href={`/publish/${blogId}`}>Publish</Link>
+                            </Button>
+                        </div>) : 
+                        (<div>
+                            <Button
+                                variant="outline"
+                                className="px-5 shrink-0"
+                                onClick={handleSave}
+                            >
+                                {isSaving ? 'Saving…' : 'Save and Publish'}
+                            </Button>
+                        </div>)
+                    }
                 </div>
             </div>
 

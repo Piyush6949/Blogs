@@ -6,6 +6,8 @@ import { use, useEffect, useState, useCallback } from 'react'
 import { verifySession } from '@/lib/dal';
 import { getContent } from '@/app/actions/blog';
 import LoadingSpinner from '@/components/web/loading-spinner';
+// import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function Publish({ params }: { params: Promise<{ blogId: string }> }) {
   const { blogId } = use(params);
@@ -119,12 +121,10 @@ export default function Publish({ params }: { params: Promise<{ blogId: string }
             >
               Publish
             </button>
-
           </div>
 
-        </form>
-
+        </form >
       </div>
-    </div>
+    </div >
   );
 }
